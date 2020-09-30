@@ -84,7 +84,7 @@ function! s:openFsi(returnFocus)
     return s:fsi_buffer
 endfunction
 
-function! s:toggleFsi()
+function! ToggleFsi()
     let fsiWindowId = bufwinid(s:fsi_buffer)
     if fsiWindowId > 0
         let current_win = win_getid()
@@ -147,14 +147,14 @@ function! s:get_complete_buffer()
     return join(getline(1, '$'), "\n")
 endfunction
 
-function! s:sendSelectionToFsi() range
+function! SendSelectionToFsi() range
     let lines = s:get_visual_selection()
     exec 'normal' len(lines) . 'j'
     let text = join(lines, "\n")
     return s:sendFsi(text)
 endfunction
 
-function! s:sendLineToFsi()
+function! SendLineToFsi()
     let text = getline('.')
     exec 'normal j'
     return s:sendFsi(text)
@@ -192,16 +192,16 @@ setl comments=s0:*\ -,m0:*\ \ ,ex0:*),s1:(*,mb:*,ex:*),:\/\/\/,:\/\/
 com! -buffer -nargs=1 FsiEval call s:sendFsi(<f-args>)
 com! -buffer FsiEvalBuffer call s:sendAllToFsi()
 com! -buffer FsiReset call s:resetFsi()
-com! -buffer FsiShow call s:toggleFsi()
+com! -buffer FsiShow call ToggleFsi()
 
 let g:fsi_keymap_send   = "<M-cr>"
 let g:fsi_keymap_toggle = "<M-@>"
 
 if g:fsi_keymap != "none"
-    execute "vnoremap <silent>" g:fsi_keymap_send ":call s:sendSelectionToFsi()<cr><esc>"
-    execute "nnoremap <silent>" g:fsi_keymap_send ":call s:sendLineToFsi()<cr>"
-    execute "nnoremap <silent>" g:fsi_keymap_toggle ":call s:toggleFsi()<cr>"
-    execute "tnoremap <silent>" g:fsi_keymap_toggle "<C-\\><C-n>:call s:toggleFsi()<cr>"
+    execute "vnoremap <silent>" g:fsi_keymap_send ":call SendSelectionToFsi()<cr><esc>"
+    execute "nnoremap <silent>" g:fsi_keymap_send ":call SendLineToFsi()<cr>"
+    execute "nnoremap <silent>" g:fsi_keymap_toggle ":call ToggleFsi()<cr>"
+    execute "tnoremap <silent>" g:fsi_keymap_toggle "<C-\\><C-n>:call ToggleFsi()<cr>"
 endif
 
 
