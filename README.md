@@ -16,7 +16,6 @@ _Scripts from [Ionide-vim](https://github.com/ionide/Ionide-vim/blob/master/READ
 * Neovim or Vim 8.0+
 
 * [.NET Core SDK](https://dotnet.microsoft.com/download)
-  - Required to run FsAutoComplete.
   - Very useful for command-line development.
 
 ## Getting Started
